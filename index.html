@@ -368,6 +368,9 @@
     cursor: default;
   }
   .app-chips li:hover { background: var(--btn-bg); border-color: var(--btn-bg); color: #fff; transform: translateY(-2px); }
+  .app-chips a { color: inherit; text-decoration: none; }
+  .app-chips li:has(a) { border-color: color-mix(in srgb, var(--blue) 45%, var(--border)); cursor: pointer; }
+  .app-chips li:has(a)::after { content: " \2192"; }
 
   .features { margin-top: 56px; }
   .features-label { text-align: center; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
@@ -562,7 +565,8 @@
   <symbol id="i-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="5" rx="2.5"/><path d="M5.5 7.5h8"/><rect x="3" y="14" width="18" height="5" rx="2.5"/><path d="M5.5 16.5h12"/></symbol>
   <symbol id="i-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3M21 14v.01M14 21h7v-4M17.5 17.5v.01"/></symbol>
   <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9.5h18M3 15h18M9.5 9.5V20"/></symbol>
-  <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8a2.8 2.8 0 0 1-4-4l8-8-1.3-1.3a4 4 0 0 0-1-1.4Z"/><path d="M14.7 6.3 12 3.6a4 4 0 0 0-5.4 5.4l2.7 2.7"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M4 21V5M8 7h7M8 11h5"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8.2 8 9 4.6-.8 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
@@ -587,6 +591,7 @@
         <button class="nav-group-btn" type="button" id="linksBtn" aria-expanded="false" aria-controls="linksMenu">Links <svg aria-hidden="true"><use href="#i-chev"/></svg></button>
         <ul class="nav-menu" id="linksMenu">
           <li class="menu-alt"><a href="#contact" data-topic="troubleshoot"><span class="mi mi-fix"><svg aria-hidden="true"><use href="#i-wrench"/></svg></span><span><b>Troubleshoot your app?</b><small>Get help fixing an AppSheet app</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="guides/"><span class="mi mi-guide"><svg aria-hidden="true"><use href="#i-book"/></svg></span><span><b>AppSheet Guides</b><small>Step-by-step tutorials</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
           <li><a href="appsheet-html-table/"><span class="mi mi-table"><svg aria-hidden="true"><use href="#i-table"/></svg></span><span><b>AppSheet HTML Table</b><small>HTML table formulas</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
           <li><a href="appsheet-progress-bar/"><span class="mi mi-bar"><svg aria-hidden="true"><use href="#i-bars"/></svg></span><span><b>AppSheet Progress Bar</b><small>Animated bars for Image columns</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
           <li><a href="appsheet-qr-barcode/"><span class="mi mi-qr"><svg aria-hidden="true"><use href="#i-qr"/></svg></span><span><b>AppSheet QR &amp; Barcode</b><small>QR and barcode formulas</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
@@ -727,7 +732,7 @@
         <article class="card cat-card reveal">
           <div class="cat-head"><div class="icon"><svg aria-hidden="true"><use href="#i-box"/></svg></div><div><h3>Operations &amp; inventory</h3><span class="cat-count">7 app types</span></div></div>
           <ul class="app-chips">
-            <li>Inventory management</li><li>Point of sale (POS)</li><li>Warehouse &amp; stock transfers</li><li>Purchase orders</li><li>Supplier management</li><li>Asset tracking with QR codes</li><li>Equipment check-in / check-out</li>
+            <li><a href="guides/appsheet-inventory-management-app/">Inventory management</a></li><li><a href="guides/appsheet-pos-app/">Point of sale (POS)</a></li><li>Warehouse &amp; stock transfers</li><li>Purchase orders</li><li>Supplier management</li><li>Asset tracking with QR codes</li><li>Equipment check-in / check-out</li>
           </ul>
         </article>
         <article class="card cat-card reveal">
