@@ -10,6 +10,7 @@ function doGet(e) {
   var action = params.action || "";
   if (action === "requestOtp") return handleRequestOtp(params);
   if (action === "verifyOtp") return handleVerifyOtp(params);
+  if (action === "hit" || action === "visits") return handleVisits(action);
   return jsonOut({ ok: false, reason: "bad_request", message: "This endpoint powers the joetayactac.site contact form. Expected action=requestOtp or action=verifyOtp." });
 }
 
@@ -101,6 +102,20 @@ function handleVerifyOtp(params) {
   }
 
   return jsonOut({ ok: true });
+}
+
+function handleVisits(action) {
+  var props = PropertiesService.getScriptProperties();
+  if (action !== "hit") return jsonOut({ ok: true, visits: Number(props.getProperty("visits") || 0) });
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) return jsonOut({ ok: true, visits: Number(props.getProperty("visits") || 0) });
+  try {
+    var visits = Number(props.getProperty("visits") || 0) + 1;
+    props.setProperty("visits", String(visits));
+    return jsonOut({ ok: true, visits: visits });
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function generateOtp() {

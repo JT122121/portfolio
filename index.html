@@ -256,6 +256,45 @@
   .stats div:hover { transform: translateY(-3px); border-color: var(--blue); box-shadow: var(--shadow-lift); }
   .stats dd { margin: 0; font-size: 28px; font-weight: 800; line-height: 1.1; color: var(--blue-strong); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
   .stats dt { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .visits { position: relative; display: inline-block; margin-top: 22px; }
+  .visits[hidden] { display: none; }
+  .visits-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px 8px 12px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--border);
+    font: inherit; font-size: 14px; font-weight: 700; color: var(--text);
+    box-shadow: var(--shadow); cursor: pointer;
+    transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
+  }
+  .visits-btn:hover, .visits.open .visits-btn { transform: translateY(-2px); border-color: var(--blue); box-shadow: var(--shadow-lift); }
+  .live-dot { position: relative; width: 10px; height: 10px; border-radius: 50%; background: #22c55e; }
+  .live-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #22c55e; animation: ping 1.8s var(--ease) infinite; }
+  @keyframes ping { 70%, 100% { transform: scale(2.4); opacity: 0; } }
+  .visits-card {
+    position: absolute; left: 0; bottom: calc(100% + 12px); z-index: 20;
+    min-width: 230px; padding: 16px 20px;
+    display: flex; flex-direction: column; gap: 2px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    box-shadow: var(--shadow-lift);
+    opacity: 0; visibility: hidden; transform: translateY(8px) scale(0.96); transform-origin: bottom left;
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), visibility 0s linear 0.25s;
+  }
+  .visits-card::after {
+    content: ""; position: absolute; left: 22px; bottom: -7px; width: 12px; height: 12px;
+    background: var(--surface); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    transform: rotate(45deg);
+  }
+  .visits.open .visits-card {
+    opacity: 1; visibility: visible; transform: none;
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), visibility 0s;
+  }
+  .visits-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .visits-num {
+    font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+    background: linear-gradient(100deg, var(--blue), var(--blue-strong) 55%, #6aa7ff);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .visits-note { font-size: 13px; color: var(--muted); }
   .facts { display: flex; flex-wrap: wrap; gap: 10px 22px; list-style: none; padding: 0; margin: 0; color: var(--muted); font-size: 15px; font-weight: 500; }
   .facts li { display: flex; align-items: center; gap: 8px; }
   .facts svg { width: 18px; height: 18px; color: var(--blue); flex: none; }
@@ -646,6 +685,14 @@
           <li><svg aria-hidden="true"><use href="#i-chat"/></svg>Fluent business English</li>
           <li><svg aria-hidden="true"><use href="#i-device"/></svg>Apps for phone, tablet &amp; desktop</li>
         </ul>
+        <div class="visits" id="visits" hidden>
+          <button class="visits-btn" type="button" id="visitsBtn" aria-expanded="false" aria-controls="visitsCard"><span class="live-dot" aria-hidden="true"></span>Site visits</button>
+          <div class="visits-card" id="visitsCard" role="status">
+            <span class="visits-label">Total site visits</span>
+            <strong class="visits-num" id="visitsNum">0</strong>
+            <span class="visits-note">and counting</span>
+          </div>
+        </div>
       </div>
 
       <div class="visual" aria-hidden="true">
@@ -1006,6 +1053,7 @@
 
 <script>
 (function() {
+  var VISITS_MIN_TO_SHOW = 0;
   var CONTACT_FORM_URL = "https://script.google.com/macros/s/AKfycbwOlbYeBPKgRKVbX1eZZnF3JpQlEQ0RXaAiJD5SsYj-B9lHQpxXkRQ-PwU6rnbjFvmA/exec";
   var RESEND_COOLDOWN_SECONDS = 60;
 
@@ -1335,6 +1383,58 @@
     emailInput.focus();
     emailInput.select();
   });
+
+  var visitsBox = document.getElementById("visits");
+  var visitsBtn = document.getElementById("visitsBtn");
+  var visitsNum = document.getElementById("visitsNum");
+  var visitsTotal = 0;
+  var visitsAnim = null;
+  var VISIT_KEY = "jt-visit-counted";
+
+  function countUp(to) {
+    cancelAnimationFrame(visitsAnim);
+    if (reduceMotion) { visitsNum.textContent = to.toLocaleString("en-US"); return; }
+    var start = null;
+    function step(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / 1400, 1);
+      visitsNum.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString("en-US");
+      if (p < 1) visitsAnim = requestAnimationFrame(step);
+    }
+    visitsAnim = requestAnimationFrame(step);
+  }
+  function setVisitsOpen(open) {
+    if (open === visitsBox.classList.contains("open")) return;
+    visitsBox.classList.toggle("open", open);
+    visitsBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) countUp(visitsTotal);
+  }
+  if (canHover) {
+    visitsBox.addEventListener("mouseenter", function() { setVisitsOpen(true); });
+    visitsBox.addEventListener("mouseleave", function() { setVisitsOpen(false); });
+  }
+  visitsBtn.addEventListener("click", function() {
+    setVisitsOpen(canHover ? true : !visitsBox.classList.contains("open"));
+  });
+  visitsBtn.addEventListener("focus", function() { if (visitsBtn.matches(":focus-visible")) setVisitsOpen(true); });
+  visitsBtn.addEventListener("blur", function() { setVisitsOpen(false); });
+  document.addEventListener("click", function(e) {
+    if (!visitsBox.contains(e.target)) setVisitsOpen(false);
+  });
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") setVisitsOpen(false);
+  });
+
+  (function loadVisits() {
+    var counted = false;
+    try { counted = sessionStorage.getItem(VISIT_KEY) === "1"; } catch (e) {}
+    callApi({ action: counted ? "visits" : "hit" }).then(function(data) {
+      if (!data || !data.ok || typeof data.visits !== "number") return;
+      try { sessionStorage.setItem(VISIT_KEY, "1"); } catch (e) {}
+      visitsTotal = data.visits;
+      if (visitsTotal >= VISITS_MIN_TO_SHOW) visitsBox.hidden = false;
+    }).catch(function() {});
+  })();
 })();
 </script>
 </body>

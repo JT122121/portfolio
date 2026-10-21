@@ -35,6 +35,22 @@ address, so fake addresses and most spam never arrive.
 
 Until step 4 is done, the form shows "The contact form isn't connected yet".
 
+## Site visit counter
+
+The same script also counts site visits for the "Site visits" button on
+the landing page:
+
+- **`action=hit`** adds one visit and returns the new total. The page
+  sends it once per browser session, so refreshing doesn't add more.
+- **`action=visits`** returns the total without adding to it.
+
+The total is stored in the script's own Script Properties under
+`visits`. To start from a different number, open Project Settings →
+Script Properties in the Apps Script editor and edit `visits`.
+
+The button stays hidden until the script answers, and until the total
+reaches `VISITS_MIN_TO_SHOW` in `index.html` (0 by default).
+
 ## Settings at the top of `AppsScript.gs`
 
 - `OTP_TTL_SECONDS` (600): how long a code works. This is 10 minutes, not
