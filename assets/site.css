@@ -242,8 +242,18 @@ body.tool-page {
   .nav-alt .alt-long { display: inline; }
 }
 @media (max-width: 760px) {
-  .site-header .nav-alt { display: none; }
   .site-header .menu-alt { display: block; }
+  .site-header .nav-alt { padding: 9px 11px; }
+  .site-header .nav-alt > span { display: none; }
+  .site-header .nav-actions { gap: 8px; }
+}
+@media (max-width: 420px) {
+  .site-header .nav { gap: 10px; }
+  .site-header .nav-group-btn { padding: 8px 8px; }
+  .nav-cta { padding: 9px 14px; font-size: 14px; }
+}
+@media (max-width: 350px) {
+  .site-header .nav-alt { display: none; }
 }
 @media (max-width: 1100px) {
   .site-header .nav-links a, .site-header .nav-group-btn { padding: 8px 10px; }
