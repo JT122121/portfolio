@@ -89,6 +89,7 @@
   .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 20px; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+  [tabindex="-1"]:focus { outline: none; }
 
   .btn {
     position: relative;
@@ -154,6 +155,46 @@
   }
   .nav-links a:hover { color: var(--blue-strong); background: var(--blue-tint); }
   .nav .btn { padding: 10px 18px; font-size: 15px; }
+  .nav-center { display: flex; align-items: center; gap: 6px; }
+  .nav-group { position: relative; }
+  .nav-group-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 999px; border: 0; background: none; cursor: pointer;
+    font: inherit; font-weight: 600; font-size: 15px; color: var(--muted);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-group-btn svg { width: 16px; height: 16px; transition: transform 0.25s var(--ease); }
+  .nav-group-btn:hover, .nav-group.open .nav-group-btn { color: var(--blue-strong); background: var(--blue-tint); }
+  .nav-group.open .nav-group-btn svg { transform: rotate(180deg); }
+  .nav-menu {
+    position: absolute; top: calc(100% + 10px); right: 0; z-index: 60;
+    width: 330px; list-style: none; margin: 0; padding: 8px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    box-shadow: var(--shadow-lift);
+    opacity: 0; visibility: hidden; transform: translateY(-6px) scale(0.98); transform-origin: top right;
+    transition: opacity 0.2s var(--ease), transform 0.2s var(--ease), visibility 0s linear 0.2s;
+  }
+  .nav-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
+  .nav-group.open .nav-menu {
+    opacity: 1; visibility: visible; transform: none;
+    transition: opacity 0.2s var(--ease), transform 0.2s var(--ease), visibility 0s;
+  }
+  .nav-menu a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border-radius: 12px; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-menu a:hover, .nav-menu a:focus-visible { background: var(--blue-tint); }
+  .nav-menu b { display: block; font-size: 15px; }
+  .nav-menu small { display: block; font-size: 13px; color: var(--muted); }
+  .mi { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; flex: none; transition: transform 0.25s var(--ease); }
+  .mi svg { width: 20px; height: 20px; }
+  .mi-pos { background: var(--blue-tint); color: var(--blue-strong); }
+  .mi-pdf { background: rgba(234, 179, 8, 0.16); color: #a16207; }
+  .mi-yt { background: #ff0033; color: #fff; }
+  .nav-menu a:hover .mi { transform: scale(1.08) rotate(-6deg); }
+  .mi-out { width: 16px; height: 16px; margin-left: auto; color: var(--muted); opacity: 0; transform: translateX(-4px); transition: opacity 0.2s, transform 0.2s var(--ease); }
+  .nav-menu a:hover .mi-out { opacity: 1; transform: none; }
 
   .hero { position: relative; padding: 72px 0 96px; overflow: hidden; }
   .hero::before {
@@ -267,6 +308,7 @@
   .pill.ok { background: rgba(22, 163, 74, 0.14); color: #15803d; }
   .pill.wait { background: rgba(234, 179, 8, 0.18); color: #a16207; }
   @media (prefers-color-scheme: dark) {
+    .mi-pdf { color: #facc15; }
     .pill.ok { color: #4ade80; }
     .pill.wait { color: #facc15; }
   }
@@ -483,6 +525,10 @@
   }
   @media (max-width: 760px) {
     .nav-links { display: none; }
+    .nav-center { margin-left: auto; }
+  }
+  @media (max-width: 400px) {
+    .nav-menu { position: fixed; top: 74px; left: 16px; right: 16px; width: auto; }
   }
   @media (max-width: 640px) {
     body { font-size: 16px; }
@@ -533,6 +579,8 @@
   <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></symbol>
   <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5L8 5.5Z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-1.5-5h-15L3 9Z"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 11.5V20h14v-8.5M10 20v-5h4v5"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8.2 8 9 4.6-.8 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
@@ -544,13 +592,23 @@
       <span class="monogram" aria-hidden="true">JT</span>
       <span class="brand-name">Joe Tayactac</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#apps">Apps</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#about">About</a></li>
-    </ul>
+    <div class="nav-center">
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <div class="nav-group" id="linksGroup">
+        <button class="nav-group-btn" type="button" id="linksBtn" aria-expanded="false" aria-controls="linksMenu">Links <svg aria-hidden="true"><use href="#i-chev"/></svg></button>
+        <ul class="nav-menu" id="linksMenu">
+          <li><a href="https://goonlinepos.com/" target="_blank" rel="noopener"><span class="mi mi-pos"><svg aria-hidden="true"><use href="#i-store"/></svg></span><span><b>GoOnlinePOS</b><small>Free POS for small businesses</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-out"/></svg></a></li>
+          <li><a href="pdf-editor/"><span class="mi mi-pdf"><svg aria-hidden="true"><use href="#i-report"/></svg></span><span><b>PDF Editor</b><small>Edit PDF text in your browser</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="https://www.youtube.com/@JoeTayactac" target="_blank" rel="noopener"><span class="mi mi-yt"><svg aria-hidden="true"><use href="#i-play"/></svg></span><span><b>YouTube</b><small>My work on video</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-out"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
     <a class="btn btn-primary" href="#contact">Start a project</a>
   </nav>
 </header>
@@ -777,7 +835,7 @@
             <li>Add text &amp; images</li>
             <li>Signatures</li>
             <li>White-out</li>
-            <li>Ready-to-fill forms</li>
+            <li>Works offline</li>
             <li>No upload</li>
           </ul>
           <a class="link-arrow" href="pdf-editor/">Open the PDF Editor <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -910,9 +968,9 @@
   <div class="wrap footer-row">
     <span>&copy; <span id="year">2026</span> Joe Tayactac</span>
     <nav class="footer-links" aria-label="Elsewhere">
-      <a href="https://www.youtube.com/@JoeTayactac" target="_blank" rel="noopener">YouTube</a>
       <a href="https://goonlinepos.com/" target="_blank" rel="noopener">GoOnlinePOS</a>
       <a href="pdf-editor/">PDF Editor</a>
+      <a href="https://www.youtube.com/@JoeTayactac" target="_blank" rel="noopener">YouTube</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -932,6 +990,29 @@
 
   var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function cleanUrl() {
+    if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener("click", function(e) {
+      var id = link.getAttribute("href").slice(1);
+      var target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      e.preventDefault();
+      var behavior = reduceMotion ? "auto" : "smooth";
+      if (id === "top") window.scrollTo({ top: 0, behavior: behavior });
+      else target.scrollIntoView({ behavior: behavior, block: "start" });
+      if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+      cleanUrl();
+    });
+  });
+  var landingTarget = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+  cleanUrl();
+  if (landingTarget) {
+    window.addEventListener("load", function() { landingTarget.scrollIntoView({ block: "start", behavior: "instant" }); });
+  }
 
   if (canHover) {
     document.querySelectorAll(".card").forEach(function(card) {
@@ -990,6 +1071,36 @@
       requestAnimationFrame(step);
     });
   }
+
+  var linksGroup = document.getElementById("linksGroup");
+  var linksBtn = document.getElementById("linksBtn");
+  var closeTimer = null;
+  function setLinksOpen(open) {
+    clearTimeout(closeTimer);
+    linksGroup.classList.toggle("open", open);
+    linksBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  linksBtn.addEventListener("click", function() {
+    setLinksOpen(canHover ? true : !linksGroup.classList.contains("open"));
+  });
+  if (canHover) {
+    linksGroup.addEventListener("mouseenter", function() { setLinksOpen(true); });
+    linksGroup.addEventListener("mouseleave", function() {
+      closeTimer = setTimeout(function() { setLinksOpen(false); }, 180);
+    });
+  }
+  document.addEventListener("click", function(e) {
+    if (!linksGroup.contains(e.target)) setLinksOpen(false);
+  });
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && linksGroup.classList.contains("open")) {
+      setLinksOpen(false);
+      linksBtn.focus();
+    }
+  });
+  linksGroup.addEventListener("focusout", function(e) {
+    if (!linksGroup.contains(e.relatedTarget)) setLinksOpen(false);
+  });
 
   var contactForm = document.getElementById("contactForm");
   var otpForm = document.getElementById("otpForm");

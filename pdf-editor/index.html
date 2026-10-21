@@ -34,7 +34,7 @@
       "browserRequirements": "Requires a modern browser such as Chrome, Edge, Firefox or Safari",
       "description": "Edit PDF text in your browser without uploading. Change existing text, add text, white out scanned pages and download. Works offline.",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "featureList": ["Ready-to-fill forms, including the Bahrain Vehicle Licensing Division form", "Edit existing PDF text", "Add text to PDF", "Insert images, photos and signatures into PDF", "White out scanned PDFs", "Bold, italic and underline", "Use fonts installed on your computer", "Works offline", "No upload, no sign-up"]
+      "featureList": ["Edit existing PDF text", "Add text to PDF", "Insert images, photos and signatures into PDF", "White out scanned PDFs", "Bold, italic and underline", "Use fonts installed on your computer", "Works offline", "No upload, no sign-up"]
     },
     {
       "@type": "FAQPage",
@@ -147,17 +147,6 @@ body.dragging .inv-drop{background:var(--pen)}
 .section h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3vw,34px);letter-spacing:-.01em;line-height:1.15;margin:0 0 14px}
 .section .intro{color:var(--slate);max-width:38em;margin:0 0 44px;font-size:17px}
 
-.form-list{display:grid;gap:28px}
-.form-card{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:center;max-width:860px}
-.form-thumb{padding:0;border:0;background:none;cursor:pointer;border-radius:3px;box-shadow:0 1px 2px rgba(30,35,41,.12),0 12px 28px -12px rgba(30,35,41,.35);overflow:hidden;transition:transform .2s ease}
-.form-thumb:hover{transform:translateY(-3px)}
-.form-thumb img{display:block;width:100%;height:auto}
-.form-info h3{font-size:20px;margin:0 0 4px;font-weight:650}
-.form-info p{margin:0 0 12px;color:var(--slate);font-size:15.5px}
-.form-info .src{font-size:14px}
-.form-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:18px;font-size:15px}
-@media (max-width:640px){.form-card{grid-template-columns:110px minmax(0,1fr);gap:18px}}
-@media (prefers-reduced-motion:reduce){.form-thumb{transition:none}.form-thumb:hover{transform:none}}
 .features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 48px}
 .feature svg{color:var(--pen);margin-bottom:12px}
 .feature h3{font-size:17px;margin:0 0 6px;font-weight:650}
@@ -294,7 +283,6 @@ body.dragging #pages{outline:3px solid var(--pen);outline-offset:-8px}
         Online PDF Editor
       </a>
       <nav aria-label="Main">
-        <a href="#forms">Forms</a>
         <a href="#how">How it works</a>
         <a href="#privacy">Privacy</a>
         <a href="#faq">FAQ</a>
@@ -341,30 +329,6 @@ body.dragging #pages{outline:3px solid var(--pen);outline-offset:-8px}
             </div>
           </div>
           <div class="inv-drop"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4M7 9l5-5 5 5M5 20h14"/></svg><strong>Drop a PDF here</strong> or click to choose</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="forms" aria-labelledby="forms-h">
-      <div class="wrap">
-        <h2 id="forms-h">Ready-to-fill forms</h2>
-        <p class="intro">Open a common form, click into the boxes, type your details and download it filled in. Nothing you type is sent anywhere.</p>
-        <div class="form-list">
-          <article class="form-card">
-            <button class="form-thumb" data-form-slug="bahrain-vehicle-licensing-form" data-name="Vehicle Licensing Division Form.pdf" aria-label="Fill in the Vehicle Licensing Division form">
-              <img src="bahrain-vehicle-licensing-form.jpg" width="400" height="565" loading="lazy" alt="First page of the Bahrain Vehicle Licensing Division form">
-            </button>
-            <div class="form-info">
-              <h3>Vehicle Licensing Division form, Bahrain</h3>
-              <p class="src">Ministry of Interior, General Directorate of Traffic. Two pages, English and Arabic.</p>
-              <p>For registering a new vehicle, annual registration, transfer of ownership, replacement copies, changing plates, cancellation and certificates.</p>
-              <div class="form-actions">
-                <button class="btn primary" data-form-slug="bahrain-vehicle-licensing-form" data-name="Vehicle Licensing Division Form.pdf">Fill in this form</button>
-                <a href="bahrain-vehicle-licensing-form">How to fill it in</a>
-                <a href="bahrain-vehicle-licensing-form.pdf" download>Download blank PDF</a>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </section>
@@ -1505,34 +1469,6 @@ async function download() {
   } catch (err) {
     console.error(err); toast('Export failed: ' + (err && err.message || err), 8000);
   } finally { btn.disabled = false; btn.textContent = 'Download PDF'; }
-}
-
-async function openTemplate(slug, name) {
-  if (!/^[a-z0-9-]+$/.test(slug)) return;
-  toast('Loading ' + name.replace(/\.pdf$/i, '') + '…', 60000);
-  let file;
-  try {
-    const res = await fetch(slug + '.pdf');
-    if (!res.ok) throw new Error(res.status);
-    file = new File([await res.blob()], name, { type: 'application/pdf' });
-  } catch (e) { toast('Couldn\'t load the form. Check your connection and try again.', 7000); return; }
-  setMode('add'); state.lastSize = 9; state.lastSpacing = 0;
-  await openPdf(file);
-  if (state.doc && state.name === name) {
-    setMode('add');
-    toast('Click a box on the form, or drag to draw a text box, then type. Type X to tick a box. For rows of small boxes (CPR, plate), raise Spacing so each digit lands in its own box.', 9000);
-  }
-}
-document.querySelectorAll('[data-form-slug]').forEach(n => n.addEventListener('click', e => {
-  e.preventDefault(); openTemplate(n.dataset.formSlug, n.dataset.name || n.dataset.formSlug + '.pdf');
-}));
-if (location.protocol === 'file:') { const f = $('#forms'); if (f) f.hidden = true; }
-{
-  const slug = new URLSearchParams(location.search).get('form');
-  if (slug) {
-    const n = document.querySelector(`[data-form-slug="${CSS.escape(slug)}"]`);
-    if (n) openTemplate(slug, n.dataset.name);
-  }
 }
 
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol))
