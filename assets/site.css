@@ -130,7 +130,6 @@ body.tool-page {
 .site-header .mi-bar { background: rgba(22, 163, 74, 0.14); color: #15803d; }
 .site-header .mi-qr { background: rgba(124, 58, 237, 0.12); color: #6d28d9; }
 .site-header .mi-table { background: rgba(13, 148, 136, 0.14); color: #0f766e; }
-.site-header .mi-guide { background: rgba(234, 88, 12, 0.12); color: #c2410c; }
 .site-header .mi-fix { background: var(--blue-tint); color: var(--blue-strong); }
 .site-header .menu-alt { display: none; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
 @media (prefers-color-scheme: dark) {
@@ -138,7 +137,6 @@ body.tool-page {
   .site-header .mi-bar { color: #4ade80; }
   .site-header .mi-qr { color: #c4b5fd; }
   .site-header .mi-table { color: #5eead4; }
-  .site-header .mi-guide { color: #fdba74; }
 }
 .site-header .nav-menu a:hover .mi { transform: scale(1.08) rotate(-6deg); }
 .site-header .mi-out { display: block; width: 16px; height: 16px; margin-left: auto; color: var(--muted); opacity: 0; transform: translateX(-4px); transition: opacity 0.2s, transform 0.2s var(--ease); }
