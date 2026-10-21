@@ -1,5 +1,5 @@
 var OWNER_EMAIL = "";
-var SCRIPT_VERSION = "2026-10-21";
+var SCRIPT_VERSION = "2026-10-21.2";
 var SITE_NAME = "Joe Tayactac";
 var OTP_TTL_SECONDS = 600;
 var RESEND_COOLDOWN_SECONDS = 60;
@@ -53,6 +53,7 @@ function handleRequestOtp(params) {
     try {
       sendOtpEmail(email, name, otp);
     } catch (err) {
+      console.error("Sending the verification code failed: " + err);
       return jsonOut({ ok: false, reason: "server_error" });
     }
 
@@ -93,13 +94,18 @@ function handleVerifyOtp(params) {
     return jsonOut({ ok: false, reason: "invalid_code", attemptsLeft: MAX_VERIFY_ATTEMPTS - record.attempts });
   }
 
+  try {
+    sendOwnerNotification(record);
+  } catch (err) {
+    console.error("Sending the inquiry to the owner failed: " + err);
+    return jsonOut({ ok: false, reason: "server_error" });
+  }
   cache.remove(key);
 
   try {
-    sendOwnerNotification(record);
     sendVisitorConfirmation(record);
   } catch (err) {
-    return jsonOut({ ok: false, reason: "server_error" });
+    console.error("Sending the confirmation to the visitor failed: " + err);
   }
 
   return jsonOut({ ok: true });
@@ -164,7 +170,9 @@ function sendVisitorConfirmation(record) {
 }
 
 function ownerEmail() {
-  return OWNER_EMAIL || Session.getEffectiveUser().getEmail();
+  var email = OWNER_EMAIL || Session.getEffectiveUser().getEmail();
+  if (!email) throw new Error("No owner email. Run testOwnerEmail once in the editor to grant permission, or set OWNER_EMAIL.");
+  return email;
 }
 
 function jsonOut(obj) {

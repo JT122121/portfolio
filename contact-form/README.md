@@ -77,6 +77,11 @@ reply includes `"version"`, which should match `SCRIPT_VERSION` at the top
 of `AppsScript.gs`. No version, or an older one, means the website is
 still calling old code (see step 5).
 
+**See why a send failed:** in the Apps Script editor, open **Executions**
+(left sidebar) and click the failed run. The log says which email failed
+and why, for example a missing permission. If your own copy fails, the
+visitor's code stays valid, so they can press Verify again once it's fixed.
+
 **Check where inquiries go:** in the Apps Script editor, pick
 **`testOwnerEmail`** in the function dropdown and click Run. Allow the
 permissions it asks for. The log shows the address inquiries go to and how
