@@ -108,12 +108,12 @@
   .hero{
     padding: 64px 0 48px;
     display:grid;
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     gap: 56px;
     align-items:start;
   }
   @media (max-width: 900px){
-    .hero{ grid-template-columns: 1fr; padding: 40px 0 28px; gap: 36px; }
+    .hero{ grid-template-columns: minmax(0, 1fr); padding: 40px 0 28px; gap: 36px; }
   }
 
   h1.headline{
@@ -329,6 +329,7 @@
   <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5L8 5.5Z"/></symbol>
   <symbol id="i-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="5" rx="2.5"/><path d="M5.5 7.5h8"/><rect x="3" y="14" width="18" height="5" rx="2.5"/><path d="M5.5 16.5h12"/></symbol>
   <symbol id="i-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3M21 14v.01M14 21h7v-4M17.5 17.5v.01"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8a2.8 2.8 0 0 1-4-4l8-8-1.3-1.3a4 4 0 0 0-1-1.4Z"/><path d="M14.7 6.3 12 3.6a4 4 0 0 0-5.4 5.4l2.7 2.7"/></symbol>
   <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9.5h18M3 15h18M9.5 9.5V20"/></symbol>
 </svg>
 <header class="site-header">
@@ -349,6 +350,7 @@
       <div class="nav-group" id="linksGroup">
         <button class="nav-group-btn" type="button" id="linksBtn" aria-expanded="false" aria-controls="linksMenu">Links <svg aria-hidden="true"><use href="#i-chev"/></svg></button>
         <ul class="nav-menu" id="linksMenu">
+          <li class="menu-alt"><a href="../?topic=troubleshoot#contact" data-topic="troubleshoot"><span class="mi mi-fix"><svg aria-hidden="true"><use href="#i-wrench"/></svg></span><span><b>Troubleshoot your app?</b><small>Get help fixing an AppSheet app</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
           <li><a href="../appsheet-html-table/"><span class="mi mi-table"><svg aria-hidden="true"><use href="#i-table"/></svg></span><span><b>AppSheet HTML Table</b><small>HTML table formulas</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
           <li><a href="../appsheet-progress-bar/"><span class="mi mi-bar"><svg aria-hidden="true"><use href="#i-bars"/></svg></span><span><b>AppSheet Progress Bar</b><small>Animated bars for Image columns</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
           <li><a href="../appsheet-qr-barcode/" aria-current="page"><span class="mi mi-qr"><svg aria-hidden="true"><use href="#i-qr"/></svg></span><span><b>AppSheet QR &amp; Barcode</b><small>QR and barcode formulas</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
@@ -358,7 +360,10 @@
         </ul>
       </div>
     </div>
-    <a class="nav-cta" href="../#contact">Start a project</a>
+    <div class="nav-actions">
+      <a class="nav-alt" href="../?topic=troubleshoot#contact" data-topic="troubleshoot"><svg aria-hidden="true"><use href="#i-wrench"/></svg><span>Troubleshoot<span class="alt-long"> your app?</span></span></a>
+      <a class="nav-cta" href="../#contact">Start a project</a>
+    </div>
   </nav>
 </header>
 
