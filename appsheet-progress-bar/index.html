@@ -250,6 +250,7 @@ footer a{color:inherit;font-weight:600}
   }
 
   let steps = [{from:0,color:'#ff9800'},{from:50,color:'#3785f9'},{from:100,color:'#4caf50'}];
+  const STEP_PALETTE = ['#f44336','#ff9800','#ffc107','#3785f9','#9c27b0','#00bcd4','#4caf50','#795548'];
 
   function readSteps(){
     return steps.map(x=>({from:Math.max(0,Math.min(100,+x.from||0)), color:x.color})).sort((a,b)=>a.from-b.from);
@@ -346,7 +347,7 @@ footer a{color:inherit;font-weight:600}
       label(W+8*k, H/2, H*0.47, 'start');
       return {P, w:SW};
     }
-    const df = `ROUND(${V} * 100)`, dj = p=>p;
+    const df = `MAX(LIST(0, ROUND(${V} * 100)))`, dj = p=>Math.max(0, p);
     if(sh==='ring'){
       const D=n(100*k), sw=n(D*0.12), r=n((D-sw)/2), c=n(D/2);
       lit(`<svg xmlns="http://www.w3.org/2000/svg" width="${D}" height="${D}">`);
@@ -419,7 +420,9 @@ footer a{color:inherit;font-weight:600}
     const sorted=readSteps(); let best=null, gap=0;
     sorted.forEach((x,i)=>{ const next = i+1<sorted.length ? sorted[i+1].from : 100; if(next-x.from>gap){ gap=next-x.from; best=Math.round(x.from+(next-x.from)/2); } });
     if(best===null || gap<2) return;
-    steps=sorted; steps.push({from:best, color:'#9c27b0'}); steps.sort((a,b)=>a.from-b.from); drawSteps(); renderBar();
+    const used = new Set(sorted.map(x=>x.color.toLowerCase()));
+    const color = STEP_PALETTE.find(c=>!used.has(c)) || STEP_PALETTE[sorted.length % STEP_PALETTE.length];
+    steps=sorted; steps.push({from:best, color}); steps.sort((a,b)=>a.from-b.from); drawSteps(); renderBar();
   });
   drawSteps(); renderBar();
 })();
