@@ -194,6 +194,7 @@
   .mi-pdf { background: rgba(234, 179, 8, 0.16); color: #a16207; }
   .mi-yt { background: #ff0033; color: #fff; }
   .mi-bar { background: rgba(22, 163, 74, 0.14); color: #15803d; }
+  .mi-qr { background: rgba(124, 58, 237, 0.12); color: #6d28d9; }
   .nav-menu a:hover .mi { transform: scale(1.08) rotate(-6deg); }
   .mi-out { width: 16px; height: 16px; margin-left: auto; color: var(--muted); opacity: 0; transform: translateX(-4px); transition: opacity 0.2s, transform 0.2s var(--ease); }
   .nav-menu a:hover .mi-out { opacity: 1; transform: none; }
@@ -312,6 +313,7 @@
   @media (prefers-color-scheme: dark) {
     .mi-pdf { color: #facc15; }
     .mi-bar { color: #4ade80; }
+    .mi-qr { color: #c4b5fd; }
     .pill.ok { color: #4ade80; }
     .pill.wait { color: #facc15; }
   }
@@ -420,6 +422,7 @@
 
   .work { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .yt { overflow: hidden; }
+  .work .yt { grid-column: 1 / -1; }
   .yt-badge {
     position: absolute; top: 28px; right: 28px;
     width: 56px; height: 40px; border-radius: 12px;
@@ -584,6 +587,7 @@
   <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
   <symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-1.5-5h-15L3 9Z"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 11.5V20h14v-8.5M10 20v-5h4v5"/></symbol>
   <symbol id="i-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="5" rx="2.5"/><path d="M5.5 7.5h8"/><rect x="3" y="14" width="18" height="5" rx="2.5"/><path d="M5.5 16.5h12"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3M21 14v.01M14 21h7v-4M17.5 17.5v.01"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8.2 8 9 4.6-.8 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
@@ -608,6 +612,7 @@
         <button class="nav-group-btn" type="button" id="linksBtn" aria-expanded="false" aria-controls="linksMenu">Links <svg aria-hidden="true"><use href="#i-chev"/></svg></button>
         <ul class="nav-menu" id="linksMenu">
           <li><a href="appsheet-progress-bar/"><span class="mi mi-bar"><svg aria-hidden="true"><use href="#i-bars"/></svg></span><span><b>AppSheet Progress Bar</b><small>Animated bars for Image columns</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="appsheet-qr-barcode/"><span class="mi mi-qr"><svg aria-hidden="true"><use href="#i-qr"/></svg></span><span><b>AppSheet QR &amp; Barcode</b><small>QR and barcode formulas</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
           <li><a href="https://goonlinepos.com/" target="_blank" rel="noopener"><span class="mi mi-pos"><svg aria-hidden="true"><use href="#i-store"/></svg></span><span><b>GoOnlinePOS</b><small>Free POS for small businesses</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-out"/></svg></a></li>
           <li><a href="pdf-editor/"><span class="mi mi-pdf"><svg aria-hidden="true"><use href="#i-report"/></svg></span><span><b>PDF Editor</b><small>Edit PDF text in your browser</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
           <li><a href="https://www.youtube.com/@JoeTayactac" target="_blank" rel="noopener"><span class="mi mi-yt"><svg aria-hidden="true"><use href="#i-play"/></svg></span><span><b>YouTube</b><small>My work on video</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-out"/></svg></a></li>
@@ -828,6 +833,18 @@
             <li>Copy-paste formula</li>
           </ul>
           <a class="link-arrow" href="appsheet-progress-bar/">Open the generator <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </article>
+        <article class="card project reveal">
+          <span class="tag">Free AppSheet tool</span>
+          <h3>AppSheet QR &amp; Barcode Generator</h3>
+          <p>Type a column name and copy one formula that shows a QR code or Code 128 barcode for every record. Choose the colors and size, with a live preview.</p>
+          <ul class="chips" aria-label="Features">
+            <li>QR codes</li>
+            <li>Code 128 barcodes</li>
+            <li>Custom colors</li>
+            <li>Live preview</li>
+          </ul>
+          <a class="link-arrow" href="appsheet-qr-barcode/">Open the generator <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </article>
         <article class="card project reveal">
           <span class="tag">Live product</span>
