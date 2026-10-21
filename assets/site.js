@@ -8,6 +8,34 @@
     onScroll();
   }
 
+  var tabStrip = document.querySelector(".site-header .nav-links");
+  var tabLinks = tabStrip ? [].slice.call(tabStrip.querySelectorAll('a[href^="#"]')) : [];
+  var tabTargets = tabLinks.map(function(a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+  if (tabLinks.length && tabTargets.every(Boolean)) {
+    var currentTab = -1;
+    var markTab = function() {
+      var line = (header ? header.offsetHeight : 70) + window.innerHeight * 0.25;
+      var idx = -1;
+      tabTargets.forEach(function(t, i) { if (t.getBoundingClientRect().top <= line) idx = i; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) idx = tabTargets.length - 1;
+      if (idx === currentTab) return;
+      currentTab = idx;
+      tabLinks.forEach(function(a, i) {
+        if (i === idx) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+      });
+      if (idx >= 0 && tabStrip.scrollWidth > tabStrip.clientWidth) {
+        var a = tabLinks[idx];
+        var inStrip = a.getBoundingClientRect().left - tabStrip.getBoundingClientRect().left + tabStrip.scrollLeft;
+        tabStrip.scrollTo({ left: inStrip - (tabStrip.clientWidth - a.offsetWidth) / 2, behavior: "smooth" });
+      }
+    };
+    var tabTicking = false;
+    window.addEventListener("scroll", function() {
+      if (!tabTicking) { tabTicking = true; requestAnimationFrame(function() { tabTicking = false; markTab(); }); }
+    }, { passive: true });
+    markTab();
+  }
+
   var linksGroup = document.getElementById("linksGroup");
   var linksBtn = document.getElementById("linksBtn");
   if (!linksGroup || !linksBtn) return;
