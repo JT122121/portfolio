@@ -88,8 +88,12 @@ permissions it asks for. The log shows the address inquiries go to and how
 many emails are left for today, and a test email is sent there.
 
 
-Run **`testSendOtp`** from the function dropdown in the Apps Script editor
-(set the test email at its top first), then check **Executions / Logs**.
+The Run dropdown only lists `testOwnerEmail`, `testSendOtp`, `doGet` and
+`doPost`; helper functions end in `_` so they stay hidden. Don't run
+`doGet` or `doPost` by hand, they only work when the website calls them.
+
+Run **`testSendOtp`** to send a verification code to your own address,
+then check **Executions / Logs**.
 `ok: false` means the call failed. `ok: true` with no email means look in
 spam. If the website says "Couldn't reach the server", double-check that
 the deployment's access is exactly **Anyone**.
