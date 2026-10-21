@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AppSheet Progress Bar Generator | Free Animated Progress Bars</title>
-<meta name="description" content="Free generator for AppSheet progress bars. Pick a style, enter your column name and copy the formula into an Image virtual column. Bars, circles, gauges and blocks, with color steps and fill animation.">
+<title>AppSheet Progress Bar Generator | Free Tool by Joe Tayactac</title>
+<meta name="description" content="Free AppSheet progress bar generator: bars, circles, gauges and blocks with color steps and animation. Copy one formula into an Image virtual column.">
 <link rel="canonical" href="https://joetayactac.site/appsheet-progress-bar/">
 <meta name="theme-color" content="#3785f9">
 <meta property="og:type" content="website">
@@ -91,6 +91,54 @@ h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute
 [hidden]{display:none!important}
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9013281257238178" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "The formula shows as text instead of a progress bar",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Set the virtual column's Type to Image. The formula builds an SVG image, so a Text column shows the code itself instead of drawing it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The bar is always empty or always full",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The progress column must hold a decimal from 0 to 1, where 0.75 means 75%. If your column stores 75 for 75%, add a virtual column with the formula [Progress] / 100 and use that column's name in the generator."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The animation doesn't play",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Some devices and views show only the final frame of an animated image. The bar still shows the correct value. If you prefer a static image everywhere, set Animation to None and copy the formula again."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The label shows a negative value or more than 100%",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The circle and gauge never draw below 0% or above 100%, but the label shows the real value on purpose, so a data entry mistake stays visible. Fix the value in the record."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I renamed my column and the bar stopped working",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The column name is written into the formula. Enter the new name in the generator and copy the formula again, or edit the name inside the square brackets."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body class="tool-page">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -230,6 +278,18 @@ h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute
       <li>Paste the formula into <b>App formula</b> and set <b>Type</b> to <b>Image</b>.</li>
       <li>Save. Add the column to your views if it doesn't show.</li>
     </ol>
+  </section>
+
+  <section class="faq-block" id="common-issues">
+    <h2 class="faq-title">Common issues</h2>
+    <p class="faq-sub">Quick fixes for the problems people run into most. Still stuck? Use the Troubleshoot button at the top.</p>
+    <div class="faq-list">
+      <details><summary>The formula shows as text instead of a progress bar</summary><p>Set the virtual column&#x27;s Type to Image. The formula builds an SVG image, so a Text column shows the code itself instead of drawing it.</p></details>
+      <details><summary>The bar is always empty or always full</summary><p>The progress column must hold a decimal from 0 to 1, where 0.75 means 75%. If your column stores 75 for 75%, add a virtual column with the formula [Progress] / 100 and use that column&#x27;s name in the generator.</p></details>
+      <details><summary>The animation doesn&#x27;t play</summary><p>Some devices and views show only the final frame of an animated image. The bar still shows the correct value. If you prefer a static image everywhere, set Animation to None and copy the formula again.</p></details>
+      <details><summary>The label shows a negative value or more than 100%</summary><p>The circle and gauge never draw below 0% or above 100%, but the label shows the real value on purpose, so a data entry mistake stays visible. Fix the value in the record.</p></details>
+      <details><summary>I renamed my column and the bar stopped working</summary><p>The column name is written into the formula. Enter the new name in the generator and copy the formula again, or edit the name inside the square brackets.</p></details>
+    </div>
   </section>
 
   <section class="hire">

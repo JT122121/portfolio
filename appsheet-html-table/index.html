@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AppSheet HTML Table Formula Generator | Free Tool by Joe Tayactac</title>
+<title>AppSheet HTML Table Formula Generator | Joe Tayactac</title>
 <meta name="description" content="Turn AppSheet columns into a ready-to-copy HTML table CONCATENATE() formula. Set header and row styling, border, width and alignment with a live preview.">
 <link rel="canonical" href="https://joetayactac.site/appsheet-html-table/">
 <meta name="theme-color" content="#3785f9">
@@ -149,6 +149,54 @@
   }
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9013281257238178" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "A value breaks the table layout",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Values that contain < or & can be read as HTML and break the table. Turn on Make values HTML-safe and copy the formula again."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I get a formula error after turning on HTML-safe",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HTML-safe wraps each value in TEXT() and SUBSTITUTE(). If a column type doesn't accept that in your app, turn HTML-safe off for that table and copy the formula again."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My column has spaces in its name",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That's fine. Type the name exactly as it appears in your table, with or without square brackets, and the generator adds the brackets for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I need the columns in a different order",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the up and down arrows next to each column. The table follows the order in the list."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The header text looks wrong",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose Original to keep the header exactly as typed, or UPPERCASE or lowercase to change it. Header text is escaped, so symbols like quotes and < show as typed."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body class="tool-page">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -347,6 +395,18 @@
           <tr><td class="param">text-align</td><td>Horizontal text alignment for header and row cells</td><td class="vals">left / center / right</td></tr>
         </tbody>
       </table>
+    </div>
+  </section>
+
+  <section class="faq-block" id="common-issues">
+    <h2 class="faq-title">Common issues</h2>
+    <p class="faq-sub">Quick fixes for the problems people run into most. Still stuck? Use the Troubleshoot button at the top.</p>
+    <div class="faq-list">
+      <details><summary>A value breaks the table layout</summary><p>Values that contain &lt; or &amp; can be read as HTML and break the table. Turn on Make values HTML-safe and copy the formula again.</p></details>
+      <details><summary>I get a formula error after turning on HTML-safe</summary><p>HTML-safe wraps each value in TEXT() and SUBSTITUTE(). If a column type doesn&#x27;t accept that in your app, turn HTML-safe off for that table and copy the formula again.</p></details>
+      <details><summary>My column has spaces in its name</summary><p>That&#x27;s fine. Type the name exactly as it appears in your table, with or without square brackets, and the generator adds the brackets for you.</p></details>
+      <details><summary>I need the columns in a different order</summary><p>Use the up and down arrows next to each column. The table follows the order in the list.</p></details>
+      <details><summary>The header text looks wrong</summary><p>Choose Original to keep the header exactly as typed, or UPPERCASE or lowercase to change it. Header text is escaped, so symbols like quotes and &lt; show as typed.</p></details>
     </div>
   </section>
 

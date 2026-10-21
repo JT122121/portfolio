@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AppSheet QR Code &amp; Barcode Generator | Free Formula by Joe Tayactac</title>
+<title>AppSheet QR Code &amp; Barcode Generator | Joe Tayactac</title>
 <meta name="description" content="Generate a QR code or barcode formula for your AppSheet app. Pick a type, color and size, then copy a ready-made formula into an Image column.">
 <link rel="canonical" href="https://joetayactac.site/appsheet-qr-barcode/">
 <meta name="theme-color" content="#3785f9">
@@ -318,6 +318,54 @@
   }
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9013281257238178" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "The formula shows as text or a link instead of a code",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Set the virtual column's Type to Image. The formula builds an image address, and only an Image column displays it as a picture."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The QR code or barcode shows as a broken image",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The image is created by a free online service, so the device needs an internet connection. Also check that the column name matches your table exactly and that the record has a value; an empty value has nothing to encode."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The barcode won't scan",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Code 128 encodes standard keyboard characters. Letters with accents or non-Latin text can't be encoded, so use a QR code for those values instead."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I make the QR code bigger or change its colors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the Size slider and the Foreground and Background colors, then copy the formula again. Keep a strong contrast between the two colors so phones can scan it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I renamed my column and the code stopped working",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The column name is written into the formula. Enter the new name in the generator and copy the formula again."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body class="tool-page">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -480,6 +528,18 @@
           <tr><td class="param">type</td><td class="desc">Barcode symbology used</td><td class="vals">Code 128 (accepts any text or numbers)</td></tr>
         </tbody>
       </table>
+    </div>
+  </section>
+
+  <section class="faq-block" id="common-issues">
+    <h2 class="faq-title">Common issues</h2>
+    <p class="faq-sub">Quick fixes for the problems people run into most. Still stuck? Use the Troubleshoot button at the top.</p>
+    <div class="faq-list">
+      <details><summary>The formula shows as text or a link instead of a code</summary><p>Set the virtual column&#x27;s Type to Image. The formula builds an image address, and only an Image column displays it as a picture.</p></details>
+      <details><summary>The QR code or barcode shows as a broken image</summary><p>The image is created by a free online service, so the device needs an internet connection. Also check that the column name matches your table exactly and that the record has a value; an empty value has nothing to encode.</p></details>
+      <details><summary>The barcode won&#x27;t scan</summary><p>Code 128 encodes standard keyboard characters. Letters with accents or non-Latin text can&#x27;t be encoded, so use a QR code for those values instead.</p></details>
+      <details><summary>Can I make the QR code bigger or change its colors?</summary><p>Yes. Use the Size slider and the Foreground and Background colors, then copy the formula again. Keep a strong contrast between the two colors so phones can scan it.</p></details>
+      <details><summary>I renamed my column and the code stopped working</summary><p>The column name is written into the formula. Enter the new name in the generator and copy the formula again.</p></details>
     </div>
   </section>
 

@@ -199,6 +199,28 @@ body.tool-page {
 }
 .panel:hover { border-color: color-mix(in srgb, var(--blue) 40%, var(--border)); box-shadow: var(--shadow-lift); }
 
+.faq-block { margin: 8px 0 36px; font-family: var(--font); }
+.faq-title { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 6px; color: var(--text); }
+.faq-sub { margin: 0 0 18px; color: var(--muted); font-size: 15px; }
+.faq-list { display: grid; gap: 10px; }
+.faq-list details {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 0 18px;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.faq-list details:hover, .faq-list details[open] { border-color: color-mix(in srgb, var(--blue) 40%, var(--border)); box-shadow: var(--shadow); }
+.faq-list summary {
+  position: relative; cursor: pointer; list-style: none;
+  padding: 15px 30px 15px 0; font-weight: 700; font-size: 16px; color: var(--text);
+}
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after {
+  content: ""; position: absolute; right: 4px; top: 50%; width: 9px; height: 9px;
+  border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted);
+  transform: translateY(-70%) rotate(45deg); transition: transform 0.25s var(--ease);
+}
+.faq-list details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+.faq-list summary:hover { color: var(--blue-strong); }
+.faq-list p { margin: 0 0 16px; color: var(--muted); font-size: 15px; line-height: 1.6; }
 .site-footer {
   padding: 32px 0 40px;
   text-align: center;
