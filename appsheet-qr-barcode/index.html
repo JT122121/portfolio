@@ -28,38 +28,28 @@
   "creator": { "@type": "Person", "name": "Joe Tayactac", "url": "https://joetayactac.site/" }
 }
 </script>
+<link rel="stylesheet" href="../assets/site.css">
 <style>
-  :root{
-    --bg: #f7f9fc;
-    --panel: #FFFFFF;
-    --panel-2: #F1F5FB;
-    --line: #dfe6f0;
-    --text: #0d1b2e;
-    --muted: #51607a;
-    --accent: #1a62d6;
-    --brand: #3785f9;
-    --accent-dim: #eaf2ff;
-    --ink: #0d1b2e;
+  :root, .theme-light{
+    --panel: var(--surface);
+    --panel-2: var(--surface-2);
+    --line: var(--border);
+    --accent: var(--btn-bg);
+    --brand: var(--blue);
+    --accent-dim: var(--blue-tint);
+    --ink: var(--text);
     --youtube: #E00000;
     --radius: 8px;
   }
 
-  *{ box-sizing: border-box; }
   html{ scroll-behavior: smooth; }
-  body{
-    margin:0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    line-height:1.5;
-    -webkit-font-smoothing: antialiased;
-  }
+  body{ line-height:1.5; }
 
   body::before{
     content:"";
     position: fixed;
     inset:0;
-    background-image: radial-gradient(circle at 1px 1px, rgba(13,27,46,0.07) 1px, transparent 1px);
+    background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 9%, transparent) 1px, transparent 1px);
     background-size: 22px 22px;
     pointer-events:none;
     z-index:0;
@@ -76,26 +66,6 @@
 
   :focus-visible{ outline: 2px solid var(--brand); outline-offset: 3px; }
 
-  header.top{
-    position: sticky; top:0; z-index:50;
-    background: rgba(247,249,252,0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .topbar{
-    display:flex; align-items:center; justify-content:space-between;
-    padding: 14px 0;
-    gap: 16px;
-  }
-  .back{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-weight:700; }
-  .back .monogram{ display:grid; place-items:center; width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,#3785f9,#0f3f99); color:#fff; font-size:13px; font-weight:800; transition: transform .3s; }
-  .back:hover .monogram{ transform: rotate(-8deg) scale(1.06); }
-  .back small{ display:block; font-weight:500; font-size:12px; color: var(--muted); }
-
-  .topbar-right{ display:flex; align-items:center; gap:10px; }
-  .hire-btn{ font-size:14px; font-weight:700; text-decoration:none; color: var(--accent); padding: 9px 16px; border-radius:999px; background: var(--accent-dim); white-space:nowrap; transition: transform .2s; }
-  .hire-btn:hover{ transform: translateY(-1px); }
 
   .youtube-btn{
     display:inline-flex; align-items:center; gap:8px;
@@ -113,11 +83,8 @@
   .youtube-btn:hover{ background: var(--youtube); color:#fff; box-shadow: 0 4px 14px rgba(224,0,0,0.28); }
   .youtube-btn:hover svg{ transform: scale(1.08); }
   .youtube-btn:active{ transform: scale(0.97); }
-  @media (max-width: 560px){
-    .topbar .youtube-btn span.label{ display:none; }
-    .topbar .youtube-btn{ padding:9px 11px; }
-    .back small{ display:none; }
-  }
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; margin-bottom:14px; padding:5px 12px 5px 8px; border-radius:999px; background: var(--panel); border:1px solid var(--line); font-size:13px; font-weight:700; color: var(--muted); box-shadow: var(--shadow); }
+  .eyebrow i{ width:8px; height:8px; border-radius:50%; background: var(--brand); }
 
   .coffee-wrap{ margin-top: 20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
   .donate-btn{
@@ -343,48 +310,63 @@
   .ref-table tr:last-child td{ border-bottom:none; }
   .ref-wrap{ overflow-x:auto; }
 
-  .hire{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; padding:24px 28px; margin-bottom: 56px; border-radius:16px; background:linear-gradient(120deg,#0f3f99,#1a62d6 60%,#3785f9); color:#fff; box-shadow: 0 22px 48px rgba(26,98,214,0.18); }
-  .hire b{ display:block; font-size:20px; margin-bottom:4px; }
-  .hire p{ margin:0; opacity:.9; font-size:15px; max-width:520px; }
-  .hire a{ display:inline-flex; align-items:center; padding:12px 22px; border-radius:999px; background:#fff; color:#0f3f99; font-weight:700; text-decoration:none; white-space:nowrap; transition: transform .2s; }
-  .hire a:hover{ transform: translateY(-2px); }
 
-  footer{ border-top: 1px solid var(--line); padding: 28px 0; position:relative; z-index:1; }
-  .footer-row{
-    display:flex; justify-content:space-between; align-items:center;
-    font-size: 14px; color: var(--muted);
-    flex-wrap:wrap; gap:10px;
-  }
-  .footer-row a{ font-weight:600; }
-  .footer-row .youtube-link{ display:inline-flex; align-items:center; gap:6px; text-decoration:none; color: var(--youtube); font-weight:700; }
-  .footer-row .youtube-link svg{ width:14px; height:14px; }
-  .footer-row .youtube-link:hover{ text-decoration:underline; }
 
   @media (prefers-reduced-motion: reduce){
     .scanline{ animation: none; top:16px; }
-    .viewfinder:hover, .copy-btn:hover, .hire a:hover{ transform:none; }
+    .viewfinder:hover, .copy-btn:hover{ transform:none; }
   }
 </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9013281257238178" crossorigin="anonymous"></script>
 </head>
-<body>
-
-<header class="top">
-  <div class="wrap topbar">
-    <a class="back" href="../"><span class="monogram">JT</span><span>Joe Tayactac<small>AppSheet developer</small></span></a>
-    <div class="topbar-right">
-      <a href="https://www.youtube.com/@JoeTayactac" target="_blank" rel="noopener" class="youtube-btn" aria-label="Watch on YouTube">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.5v-7l6.4 3.5-6.4 3.5Z"/></svg>
-        <span class="label">Watch on YouTube</span>
-      </a>
-      <a class="hire-btn" href="../#contact">Hire me</a>
+<body class="tool-page">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-1.5-5h-15L3 9Z"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 11.5V20h14v-8.5M10 20v-5h4v5"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 17v-3M12 17v-6M16 17v-2"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5L8 5.5Z"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="5" rx="2.5"/><path d="M5.5 7.5h8"/><rect x="3" y="14" width="18" height="5" rx="2.5"/><path d="M5.5 16.5h12"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3M21 14v.01M14 21h7v-4M17.5 17.5v.01"/></symbol>
+  <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9.5h18M3 15h18M9.5 9.5V20"/></symbol>
+</svg>
+<header class="site-header">
+  <nav class="site-wrap nav" aria-label="Main">
+    <a class="brand" href="../" aria-label="Joe Tayactac, home">
+      <span class="monogram" aria-hidden="true">JT</span>
+      <span class="brand-name">Joe Tayactac</span>
+    </a>
+    <div class="nav-center">
+      <ul class="nav-links">
+        <li><a href="../#services">Services</a></li>
+        <li><a href="../#apps">Apps</a></li>
+        <li><a href="../#work">Work</a></li>
+        <li><a href="../#process">Process</a></li>
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#contact">Contact</a></li>
+      </ul>
+      <div class="nav-group" id="linksGroup">
+        <button class="nav-group-btn" type="button" id="linksBtn" aria-expanded="false" aria-controls="linksMenu">Links <svg aria-hidden="true"><use href="#i-chev"/></svg></button>
+        <ul class="nav-menu" id="linksMenu">
+          <li><a href="../appsheet-html-table/"><span class="mi mi-table"><svg aria-hidden="true"><use href="#i-table"/></svg></span><span><b>AppSheet HTML Table</b><small>HTML table formulas</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="../appsheet-progress-bar/"><span class="mi mi-bar"><svg aria-hidden="true"><use href="#i-bars"/></svg></span><span><b>AppSheet Progress Bar</b><small>Animated bars for Image columns</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="../appsheet-qr-barcode/" aria-current="page"><span class="mi mi-qr"><svg aria-hidden="true"><use href="#i-qr"/></svg></span><span><b>AppSheet QR &amp; Barcode</b><small>QR and barcode formulas</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="https://goonlinepos.com/" target="_blank" rel="noopener"><span class="mi mi-pos"><svg aria-hidden="true"><use href="#i-store"/></svg></span><span><b>GoOnlinePOS</b><small>Free POS for small businesses</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-out"/></svg></a></li>
+          <li><a href="../pdf-editor/"><span class="mi mi-pdf"><svg aria-hidden="true"><use href="#i-report"/></svg></span><span><b>PDF Editor</b><small>Edit PDF text in your browser</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="https://www.youtube.com/@JoeTayactac" target="_blank" rel="noopener"><span class="mi mi-yt"><svg aria-hidden="true"><use href="#i-play"/></svg></span><span><b>YouTube</b><small>My work on video</small></span><svg class="mi-out" aria-hidden="true"><use href="#i-out"/></svg></a></li>
+        </ul>
+      </div>
     </div>
-  </div>
+    <a class="nav-cta" href="../#contact">Start a project</a>
+  </nav>
 </header>
 
 <main class="wrap">
 
   <section class="hero" id="generate">
     <div class="hero-left">
+      <span class="eyebrow"><i></i>Free AppSheet tool</span>
       <h1 class="headline">AppSheet <span class="accent">QR &amp; Barcode</span> Generator</h1>
       <p class="sub intro" id="pageIntro">Generate a QR code or barcode for your AppSheet app.</p>
       <p class="sub" id="pageSub">Pick a type, fill in your column name, then copy the ready-made formula below and paste it into your AppSheet column.</p>
@@ -463,6 +445,10 @@
         Buy me a coffee
       </a>
       <span class="coffee-note">this formula runs on caffeine, not magic</span>
+      <a href="https://www.youtube.com/@JoeTayactac" target="_blank" rel="noopener" class="youtube-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.5v-7l6.4 3.5-6.4 3.5Z"/></svg>
+        Watch on YouTube
+      </a>
     </div>
   </section>
 
@@ -497,21 +483,16 @@
       <b>Need a full AppSheet app built?</b>
       <p>I've built 100+ AppSheet apps for inventory, POS, inspections, approvals and reporting, for clients in the USA, Europe and Asia.</p>
     </div>
-    <a href="../#contact">Start a project</a>
+    <a class="hire-cta" href="../#contact">Start a project</a>
   </section>
 
 </main>
 
-<footer>
-  <div class="wrap footer-row">
-    <span>Free AppSheet tool by <a href="../">Joe Tayactac</a></span>
-    <a href="https://www.youtube.com/@JoeTayactac" target="_blank" rel="noopener" class="youtube-link">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.5v-7l6.4 3.5-6.4 3.5Z"/></svg>
-      Watch on YouTube
-    </a>
-  </div>
+<footer class="site-footer">
+  <div class="site-wrap">Free tool by <a href="../">Joe Tayactac</a></div>
 </footer>
 
+<script src="../assets/site.js"></script>
 <script>
   const dataInput = document.getElementById('data');
   const fg = document.getElementById('fg');

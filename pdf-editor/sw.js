@@ -1,4 +1,4 @@
-const VERSION = 'pdf-tool-v1';
+const VERSION = 'pdf-tool-v2';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png',
   './pdf.min.js', './pdf.worker.min.js', './pdf-lib.min.js', './fontkit.umd.min.js'];
 
