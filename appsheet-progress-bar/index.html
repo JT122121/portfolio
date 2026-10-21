@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AppSheet Progress Bar Generator | Free Animated Progress Bars</title>
+<meta name="description" content="Free generator for AppSheet progress bars. Pick a style, enter your column name and copy the formula into an Image virtual column. Bars, circles, gauges and blocks, with color steps and fill animation.">
+<link rel="canonical" href="https://joetayactac.site/appsheet-progress-bar/">
+<meta name="theme-color" content="#3785f9">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AppSheet Progress Bar Generator">
+<meta property="og:description" content="Free generator for animated AppSheet progress bars. Copy one formula into an Image virtual column.">
+<meta property="og:url" content="https://joetayactac.site/appsheet-progress-bar/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%233785f9'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='26' font-weight='700' fill='white' text-anchor='middle'%3EJT%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AppSheet Progress Bar Generator",
+  "url": "https://joetayactac.site/appsheet-progress-bar/",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any (runs in a web browser)",
+  "description": "Generate an AppSheet formula that draws an animated progress bar, circle or gauge in an Image virtual column.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Person", "name": "Joe Tayactac", "url": "https://joetayactac.site/" }
+}
+</script>
+<style>
+:root{
+  --bg:#f7f9fc; --surface:#ffffff; --ink:#0d1b2e; --muted:#51607a; --line:#dfe6f0;
+  --accent:#1a62d6; --accent-ink:#ffffff; --accent-tint:#eaf2ff; --brand:#3785f9; --field:#f8fafc; --focus:#3785f9;
+  --code-bg:#0e1726; --code-ink:#d9e2f0; --code-str:#9fd8b8; --code-fn:#8fb8ff; --code-col:#ffcf8a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#070d18; --surface:#0e1726; --ink:#e8eef8; --muted:#9aa9c2; --line:#1f2c42;
+    --accent:#3785f9; --accent-ink:#071a3a; --accent-tint:rgba(55,133,249,.14); --field:#0b1320; --focus:#6aa7ff; --code-bg:#050a13;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#070d18; --surface:#0e1726; --ink:#e8eef8; --muted:#9aa9c2; --line:#1f2c42;
+  --accent:#3785f9; --accent-ink:#071a3a; --accent-tint:rgba(55,133,249,.14); --field:#0b1320; --focus:#6aa7ff; --code-bg:#050a13;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.topbar{border-bottom:1px solid var(--line);background:var(--surface)}
+.topbar .in{max-width:760px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.back{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;color:var(--ink)}
+.back .mono{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#3785f9,#0f3f99);color:#fff;font-size:13px;font-weight:800;transition:transform .3s}
+.back:hover .mono{transform:rotate(-8deg) scale(1.06)}
+.back small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.top-cta{font-size:14px;font-weight:700;text-decoration:none;color:var(--accent);padding:8px 14px;border-radius:999px;background:var(--accent-tint);white-space:nowrap;transition:transform .2s}
+.top-cta:hover{transform:translateY(-1px)}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px;padding-block:32px 56px;display:grid;gap:20px}
+h1{font-size:28px;line-height:1.2;margin:0;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+.sub{color:var(--muted);margin:6px 0 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:16px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:560px){.fields{grid-template-columns:1fr}}
+label{display:grid;gap:5px;font-size:13px;font-weight:600}
+.hint{font-weight:400;color:var(--muted);font-size:12px;margin:0}
+input,select{font:inherit;font-size:14px;width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:var(--field);color:var(--ink);transition:border-color .2s}
+input:hover,select:hover{border-color:color-mix(in srgb,var(--brand) 50%,var(--line))}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.col-row{grid-column:1/-1;display:grid;gap:5px}
+.col-line{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.col-line label{flex:1 1 240px}
+.coffee{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:9px;background:#ffc439;border:1px solid #e0a800;color:#111;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;transition:transform .2s,background .2s}
+.coffee:hover{background:#ffb300;transform:translateY(-1px)}
+.stage{background:var(--field);border:1px dashed var(--line);border-radius:12px;padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.stage.row{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:20px}
+.stage img{display:block;max-width:100%;height:auto}
+.replay{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--surface);color:var(--accent);cursor:pointer;transition:border-color .2s}
+.replay:hover{border-color:var(--brand)}
+.out{background:var(--code-bg);border-radius:14px;overflow:hidden}
+.out-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px 10px 16px;border-bottom:1px solid #1d2a40}
+.out-head span{color:#aab6c8;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.copy{font:inherit;font-weight:700;font-size:13px;border:0;border-radius:8px;padding:7px 14px;background:var(--accent);color:var(--accent-ink);cursor:pointer;transition:transform .2s}
+.copy:hover{transform:translateY(-1px)}
+.copy.done{background:#2f8a4a;color:#fff}
+pre{margin:0;padding:16px;overflow-x:auto;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.6;color:var(--code-ink)}
+pre .s{color:var(--code-str)} pre .f{color:var(--code-fn)} pre .c{color:var(--code-col)}
+.steps{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px;color:var(--muted)}
+.steps b{color:var(--ink);font-weight:700}
+.colors{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){.colors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.picker{display:flex;align-items:center;gap:8px;padding:4px 10px 4px 4px;border:1px solid var(--line);border-radius:9px;background:var(--field)}
+.picker input{width:36px;height:30px;padding:0;border:0;background:transparent;cursor:pointer}
+.picker code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--muted)}
+.steps-box{display:grid;gap:10px}
+.step{display:grid;grid-template-columns:auto 90px auto 1fr auto;align-items:center;gap:8px;font-size:13px}
+.step input[type=number]{padding:7px 8px}
+.step .fixed{display:inline-block;width:90px;padding:7px 8px;color:var(--muted)}
+.icon-btn{font:inherit;font-size:16px;line-height:1;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--field);color:var(--muted);cursor:pointer}
+.icon-btn:hover{color:var(--ink);border-color:var(--brand)}
+.add-btn{justify-self:start;font:inherit;font-size:13px;font-weight:700;border:1px dashed var(--line);border-radius:8px;background:transparent;color:var(--accent);padding:7px 12px;cursor:pointer}
+.add-btn:hover{border-color:var(--brand)}
+.slider{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;font-size:13px;color:var(--muted);width:100%}
+.slider input{accent-color:var(--brand);padding:0;border:0;background:transparent}
+.slider output{font-family:"IBM Plex Mono",monospace;color:var(--ink);min-width:4ch;text-align:right}
+@media (max-width:480px){.step{grid-template-columns:auto 72px auto 1fr auto}.step .fixed{width:72px}}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0;font-weight:700}
+.hire{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;border-radius:14px;background:linear-gradient(120deg,#0f3f99,#1a62d6 60%,#3785f9);color:#fff}
+.hire b{display:block;font-size:18px;margin-bottom:2px}
+.hire p{margin:0;opacity:.9;font-size:14px;max-width:440px}
+.hire a{display:inline-flex;align-items:center;padding:11px 20px;border-radius:999px;background:#fff;color:#0f3f99;font-weight:700;text-decoration:none;white-space:nowrap;transition:transform .2s}
+.hire a:hover{transform:translateY(-2px)}
+footer{text-align:center;color:var(--muted);font-size:13px}
+footer a{color:inherit;font-weight:600}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="in">
+    <a class="back" href="../"><span class="mono">JT</span><span>Joe Tayactac<small>AppSheet developer</small></span></a>
+    <a class="top-cta" href="../#contact">Hire me</a>
+  </div>
+</div>
+<main class="wrap">
+  <header>
+    <h1>AppSheet Progress Bar Generator</h1>
+    <p class="sub">Enter your column name, pick a style, and copy the formula into an Image virtual column.</p>
+  </header>
+
+  <section class="card">
+    <h2>Settings</h2>
+    <div class="fields">
+      <div class="col-row">
+        <div class="col-line">
+          <label>Progress column name (Decimal type)
+            <input type="text" id="col" placeholder="e.g. Progress" value="Progress">
+          </label>
+          <a class="coffee" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=joemarie.tayactac1%40gmail.com&amp;item_name=Coffee+for+the+developer&amp;currency_code=USD" target="_blank" rel="noopener">☕ Buy the developer a coffee</a>
+        </div>
+        <span class="hint">The Decimal column that holds the progress, from 0 to 1 (0.75 = 75%).</span>
+      </div>
+      <label>Color style
+        <select id="mode">
+          <option value="auto">Changes with progress</option>
+          <option value="single">One color</option>
+        </select>
+      </label>
+      <label>Size
+        <select id="size">
+          <option value="0.67">Small</option>
+          <option value="1" selected>Medium</option>
+          <option value="1.33">Large</option>
+        </select>
+      </label>
+      <label>Shape
+        <select id="shape">
+          <option value="round">Rounded bar</option>
+          <option value="square">Square bar</option>
+          <option value="thin">Thin line</option>
+          <option value="blocks">Blocks (10 segments)</option>
+          <option value="ring">Circle</option>
+          <option value="gauge">Half circle (gauge)</option>
+        </select>
+      </label>
+      <label>Show percentage
+        <select id="label">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+      <label>Animation
+        <select id="anim">
+          <option value="yes" selected>Fill on load</option>
+          <option value="no">None</option>
+        </select>
+      </label>
+    </div>
+    <div class="steps-box" id="stepsBox">
+      <h2>Color steps</h2>
+      <div id="stepList"></div>
+      <button type="button" class="add-btn" id="addStep">+ Add color step</button>
+      <p class="hint">Each color is used from its % until the next step. Example: 0% red, 5% orange, 50% blue, 100% green.</p>
+    </div>
+    <div class="fields colors">
+      <label id="singleBox">Bar color<span class="picker"><input type="color" id="c0" value="#3785f9"><code></code></span></label>
+      <label>Background<span class="picker"><input type="color" id="track" value="#e0e0e0"><code></code></span></label>
+      <label id="textBox">Text color<span class="picker"><input type="color" id="tc" value="#000000"><code></code></span></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Preview</h2>
+    <div class="stage">
+      <img id="mainImg" alt="Progress bar preview">
+      <div class="slider"><span>Test value</span><input type="range" id="test" min="0" max="100" value="65" aria-label="Test value in percent"><output id="testOut">65%</output></div>
+      <button type="button" class="replay" id="replay">Replay animation</button>
+    </div>
+    <div class="stage" id="stage"></div>
+  </section>
+
+  <div class="out">
+    <div class="out-head"><span>Bar formula</span><button type="button" class="copy" data-target="barCode">Copy</button></div>
+    <pre id="barCode"></pre>
+  </div>
+
+  <section class="card">
+    <h2>How to use</h2>
+    <ol class="steps">
+      <li>In AppSheet go to <b>Data → Columns</b> and click <b>Add virtual column</b>.</li>
+      <li>Give it a new name, for example <b>Progress Bar</b>.</li>
+      <li>Paste the formula into <b>App formula</b> and set <b>Type</b> to <b>Image</b>.</li>
+      <li>Save. Add the column to your views if it doesn't show.</li>
+    </ol>
+  </section>
+
+  <section class="hire">
+    <div>
+      <b>Need a full AppSheet app built?</b>
+      <p>I've built 100+ AppSheet apps for inventory, POS, inspections, approvals and reporting, for clients in the USA, Europe and Asia.</p>
+    </div>
+    <a href="../#contact">Start a project</a>
+  </section>
+
+  <footer>Free tool by <a href="../">Joe Tayactac</a></footer>
+</main>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const clean = (s, d) => ((s||'').trim().replace(/^\[|\]$/g,'')) || d;
+  const enc = c => '%23' + c.slice(1);
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  function highlight(code){
+    let out='', i=0;
+    while(i<code.length){
+      const ch=code[i];
+      if(ch==='"'){
+        let j=i+1;
+        while(j<code.length){ if(code[j]==='"'){ if(code[j+1]==='"'){ j+=2; continue; } break; } j++; }
+        out+='<span class="s">'+esc(code.slice(i,j+1))+'</span>'; i=j+1; continue;
+      }
+      if(ch==='['){ const j=code.indexOf(']',i); out+='<span class="c">'+esc(code.slice(i,j+1))+'</span>'; i=j+1; continue; }
+      const m=code.slice(i).match(/^[A-Z_]+(?=\()/);
+      if(m){ out+='<span class="f">'+m[0]+'</span>'; i+=m[0].length; continue; }
+      out+=esc(ch); i++;
+    }
+    return out;
+  }
+
+  let steps = [{from:0,color:'#ff9800'},{from:50,color:'#3785f9'},{from:100,color:'#4caf50'}];
+
+  function readSteps(){
+    return steps.map(x=>({from:Math.max(0,Math.min(100,+x.from||0)), color:x.color})).sort((a,b)=>a.from-b.from);
+  }
+
+  function drawSteps(){
+    const list=$('stepList'); list.innerHTML='';
+    steps.forEach((st,i)=>{
+      const row=document.createElement('div'); row.className='step';
+      const first = i===0;
+      row.innerHTML = `<span>From</span>`+
+        (first ? `<span class="fixed">0</span>` : `<input type="number" min="1" max="100" value="${st.from}" aria-label="Start percent for step ${i+1}">`)+
+        `<span>%</span><span class="picker"><input type="color" value="${st.color}" aria-label="Color for step ${i+1}"><code></code></span>`+
+        (first ? `<span style="width:32px"></span>` : `<button type="button" class="icon-btn" aria-label="Remove step ${i+1}">×</button>`);
+      const num=row.querySelector('input[type=number]');
+      if(num){ num.addEventListener('input',()=>{ st.from=num.value; renderBar(); }); num.addEventListener('change',()=>{ steps=readSteps(); drawSteps(); renderBar(); }); }
+      const col=row.querySelector('input[type=color]');
+      col.addEventListener('input',()=>{ st.color=col.value; renderBar(); });
+      const del=row.querySelector('.icon-btn');
+      if(del) del.addEventListener('click',()=>{ steps.splice(i,1); drawSteps(); renderBar(); });
+      list.appendChild(row);
+    });
+    $('stepList').style.display='grid'; $('stepList').style.gap='8px';
+  }
+
+  function stepColor(sts, pct){
+    let c=sts[0].color;
+    sts.forEach(x=>{ if(pct>=x.from) c=x.color; });
+    return c;
+  }
+
+  const n = x => +(+x).toFixed(2);
+
+  function settings(){
+    return {
+      col: clean($('col').value,'Progress'), mode:$('mode').value, shape:$('shape').value,
+      c0:$('c0').value, steps: readSteps(), track:$('track').value, tc:$('tc').value,
+      k: +$('size').value, label: $('label').value==='yes', anim: $('anim').value==='yes'
+    };
+  }
+
+  function colorToken(s, V){
+    if(s.mode!=='auto') return {lit:s.c0};
+    const rest = s.steps.slice(1).reverse();
+    if(!rest.length) return {lit:s.steps[0].color};
+    const lines = rest.map(x=>`    ${V} >= ${+(x.from/100).toFixed(4)}, "${enc(x.color)}",`);
+    lines.push(`    TRUE, "${enc(s.steps[0].color)}"`);
+    return {f:`IFS(\n${lines.join('\n')}\n  )`, js:p=>stepColor(s.steps,p)};
+  }
+
+  const ANIM = 'dur="1.2s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.8 0.2 1"';
+
+  function parts(s, animate){
+    const V = `DECIMAL([${s.col}])`, k=s.k, P=[];
+    const lit = x => P.push({lit:x});
+    const ex = (f,js) => P.push({f,js});
+    const col = colorToken(s,V);
+    const pct = () => ex(`ROUND(${V} * 100)`, p=>p);
+    const txt = (x,y,fs,anchor) => `<text x="${n(x)}" y="${n(y)}" dominant-baseline="central" text-anchor="${anchor}" font-family="Arial" font-size="${n(fs)}" font-weight="bold" fill="${s.tc}">`;
+    const label = (x,y,fs,anchor) => { if(!s.label) return; lit(txt(x,y,fs,anchor)); pct(); lit('%</text>'); };
+    const close = (tag, attr, from, f, js, suffix) => {
+      if(!(s.anim && animate)){ lit('"/>'); return; }
+      lit(`"><animate attributeName="${attr}" from="${from}" to="`); ex(f, js); lit(`${suffix}" ${ANIM}/></${tag}>`);
+    };
+    const sh=s.shape;
+
+    if(sh==='round' || sh==='square'){
+      const W=n(300*k), H=n(30*k), rx = sh==='round' ? n(H/2) : 0;
+      const wf = `ROUND(${V} * ${W})`, wj = p=>Math.round(p/100*W);
+      lit(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">`);
+      lit(`<rect width="${W}" height="${H}" rx="${rx}" fill="${s.track}"/>`);
+      lit('<rect width="'); ex(wf, wj); lit(`" height="${H}" rx="${rx}" fill="`); P.push(col); close('rect', 'width', '0', wf, wj, '');
+      label(W/2, H/2, H*0.47, 'middle');
+      return {P, w:W};
+    }
+    if(sh==='thin' || sh==='blocks'){
+      const W=n(300*k), H=n(30*k), extra = s.label ? n(58*k) : 0, SW=n(W+extra);
+      if(sh==='thin'){
+        const t=n(H*0.3), y=n((H-t)/2), rx=n(t/2);
+        const wf = `ROUND(${V} * ${W})`, wj = p=>Math.round(p/100*W);
+        lit(`<svg xmlns="http://www.w3.org/2000/svg" width="${SW}" height="${H}">`);
+        lit(`<rect y="${y}" width="${W}" height="${t}" rx="${rx}" fill="${s.track}"/>`);
+        lit(`<rect y="${y}" width="`); ex(wf, wj); lit(`" height="${t}" rx="${rx}" fill="`); P.push(col); close('rect', 'width', '0', wf, wj, '');
+      } else {
+        const N=10, gap=n(4*k), seg=n((W-gap*(N-1))/N), stepW=n(seg+gap);
+        const wf = `FLOOR(${V} * ${N}) * ${stepW}`, wj = p=>n(Math.floor(p/100*N+1e-9)*stepW);
+        let m='';
+        for(let i=0;i<N;i++) m+=`<rect x="${n(i*stepW)}" width="${seg}" height="${H}" rx="${n(3*k)}" fill="white"/>`;
+        lit(`<svg xmlns="http://www.w3.org/2000/svg" width="${SW}" height="${H}">`);
+        lit(`<defs><mask id="m">${m}</mask></defs>`);
+        lit(`<g mask="url(#m)"><rect width="${W}" height="${H}" fill="${s.track}"/>`);
+        lit('<rect width="'); ex(wf, wj); lit(`" height="${H}" fill="`); P.push(col); close('rect', 'width', '0', wf, wj, ''); lit('</g>');
+      }
+      label(W+8*k, H/2, H*0.47, 'start');
+      return {P, w:SW};
+    }
+    const df = `ROUND(${V} * 100)`, dj = p=>p;
+    if(sh==='ring'){
+      const D=n(100*k), sw=n(D*0.12), r=n((D-sw)/2), c=n(D/2);
+      lit(`<svg xmlns="http://www.w3.org/2000/svg" width="${D}" height="${D}">`);
+      lit(`<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${s.track}" stroke-width="${sw}"/>`);
+      lit(`<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke-width="${sw}" pathLength="100" transform="rotate(-90 ${c} ${c})" stroke-dasharray="`);
+      ex(df, dj); lit(' 100" stroke="'); P.push(col); close('circle', 'stroke-dasharray', '0 100', df, dj, ' 100');
+      label(c, c, D*0.22, 'middle');
+      return {P, w:D};
+    }
+    const D=n(160*k), sw=n(D*0.12), r=n((D-sw)/2), cy=n(D/2), H=n(D/2+sw/2);
+    const d=`M ${n(sw/2)} ${cy} A ${r} ${r} 0 0 1 ${n(D-sw/2)} ${cy}`;
+    lit(`<svg xmlns="http://www.w3.org/2000/svg" width="${D}" height="${H}">`);
+    lit(`<path d="${d}" fill="none" stroke="${s.track}" stroke-width="${sw}"/>`);
+    lit(`<path d="${d}" fill="none" stroke-width="${sw}" pathLength="100" stroke-dasharray="`);
+    ex(df, dj); lit(' 100" stroke="'); P.push(col); close('path', 'stroke-dasharray', '0 100', df, dj, ' 100');
+    label(D/2, cy-D*0.1, D*0.17, 'middle');
+    return {P, w:D};
+  }
+
+  const litF = x => '"' + x.replace(/%/g,'%25').replace(/#/g,'%23').replace(/"/g,'""') + '"';
+
+  function formula(s){
+    const {P} = parts(s, true);
+    const args = P.map((t,i)=> t.lit!==undefined ? (i===0 ? '"data:image/svg+xml;utf8,' + litF(t.lit).slice(1) : litF(t.lit)) : t.f);
+    args.push('"</svg>"');
+    return 'CONCATENATE(\n  ' + args.join(',\n  ') + '\n)';
+  }
+
+  function svgFor(s, pct, animate){
+    const {P} = parts(s, animate);
+    const svg = P.map(t=> t.lit!==undefined ? t.lit : t.js(pct)).join('') + '</svg>';
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  }
+
+  function renderBar(e){
+    const s = settings(), w = parts(s, false).w;
+    const dragging = e && e.type==='input' && e.target && e.target.id==='test';
+    $('singleBox').hidden = s.mode==='auto';
+    $('stepsBox').hidden = s.mode!=='auto';
+    $('textBox').hidden = !s.label;
+    $('replay').hidden = !s.anim;
+    const t=+$('test').value; $('testOut').textContent=t+'%'; $('mainImg').src=svgFor(s,t,!dragging); $('mainImg').width=w;
+    document.querySelectorAll('.picker').forEach(el=>{ el.querySelector('code').textContent = el.querySelector('input').value.toUpperCase(); });
+    if(dragging) return;
+    $('stage').className = 'stage' + ((s.shape==='ring'||s.shape==='gauge') ? ' row' : '');
+    $('stage').innerHTML = [25,60,100].map(p=>`<img width="${w}" alt="Progress at ${p} percent" src="${svgFor(s,p,true)}">`).join('');
+    const f = formula(s);
+    $('barCode').dataset.raw = f;
+    $('barCode').innerHTML = highlight(f);
+  }
+
+  document.querySelectorAll('input,select').forEach(el=>{
+    el.addEventListener('input', renderBar); el.addEventListener('change', renderBar);
+  });
+
+  $('replay').addEventListener('click', ()=>{
+    document.querySelectorAll('.stage img').forEach(img=>{ const src=img.src; img.src=''; img.src=src; });
+  });
+
+  document.querySelectorAll('.copy').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const pre=$(btn.dataset.target), text=pre.dataset.raw;
+      const ok=()=>{ btn.textContent='Copied'; btn.classList.add('done'); setTimeout(()=>{ btn.textContent='Copy'; btn.classList.remove('done'); },1500); };
+      const fallback=()=>{ const r=document.createRange(); r.selectNodeContents(pre); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent='Press Ctrl+C'; setTimeout(()=>{ btn.textContent='Copy'; },2500); };
+      try{ navigator.clipboard.writeText(text).then(ok,fallback); }catch(e){ fallback(); }
+    });
+  });
+
+  $('addStep').addEventListener('click',()=>{
+    const sorted=readSteps(); let best=null, gap=0;
+    sorted.forEach((x,i)=>{ const next = i+1<sorted.length ? sorted[i+1].from : 100; if(next-x.from>gap){ gap=next-x.from; best=Math.round(x.from+(next-x.from)/2); } });
+    if(best===null || gap<2) return;
+    steps=sorted; steps.push({from:best, color:'#9c27b0'}); steps.sort((a,b)=>a.from-b.from); drawSteps(); renderBar();
+  });
+  drawSteps(); renderBar();
+})();
+</script>
+</body>
+</html>
