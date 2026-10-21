@@ -1,4 +1,5 @@
-var OWNER_EMAIL = "REPLACE_WITH_YOUR_EMAIL@example.com";
+var OWNER_EMAIL = "";
+var SCRIPT_VERSION = "2026-10-21";
 var SITE_NAME = "Joe Tayactac";
 var OTP_TTL_SECONDS = 600;
 var RESEND_COOLDOWN_SECONDS = 60;
@@ -11,7 +12,7 @@ function doGet(e) {
   if (action === "requestOtp") return handleRequestOtp(params);
   if (action === "verifyOtp") return handleVerifyOtp(params);
   if (action === "hit" || action === "visits") return handleVisits(action);
-  return jsonOut({ ok: false, reason: "bad_request", message: "This endpoint powers the joetayactac.site contact form. Expected action=requestOtp or action=verifyOtp." });
+  return jsonOut({ ok: false, reason: "bad_request", version: SCRIPT_VERSION, message: "This endpoint powers the joetayactac.site contact form. Expected action=requestOtp or action=verifyOtp." });
 }
 
 function doPost(e) {
@@ -148,7 +149,7 @@ function sendOwnerNotification(record) {
     "Email: " + record.email + "\n\n" +
     "Message:\n" + record.message + "\n\n" +
     "(Reply-To is set to their email, so you can just hit Reply.)";
-  MailApp.sendEmail({ to: OWNER_EMAIL, subject: subject, body: body, replyTo: record.email, name: SITE_NAME + " website" });
+  MailApp.sendEmail({ to: ownerEmail(), subject: subject, body: body, replyTo: record.email, name: SITE_NAME + " website" });
 }
 
 function sendVisitorConfirmation(record) {
@@ -162,8 +163,18 @@ function sendVisitorConfirmation(record) {
   MailApp.sendEmail({ to: record.email, subject: subject, body: body, name: SITE_NAME });
 }
 
+function ownerEmail() {
+  return OWNER_EMAIL || Session.getEffectiveUser().getEmail();
+}
+
 function jsonOut(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function testOwnerEmail() {
+  var to = ownerEmail();
+  Logger.log("Inquiries go to: " + to + " | Emails left today: " + MailApp.getRemainingDailyQuota() + " | Version: " + SCRIPT_VERSION);
+  MailApp.sendEmail({ to: to, subject: "Contact form test", body: "If you can read this, inquiries from joetayactac.site will reach this inbox.", name: SITE_NAME + " website" });
 }
 
 function testSendOtp() {

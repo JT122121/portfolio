@@ -21,17 +21,20 @@ address, so fake addresses and most spam never arrive.
 ## Setup (once)
 
 1. Go to [script.google.com](https://script.google.com) → **New project**.
-2. Paste in `AppsScript.gs`. Set `OWNER_EMAIL` at the top to the address
-   that should receive inquiries (use the same Google account you deploy
-   with, since mail is always sent *from* that account).
+2. Paste in `AppsScript.gs`. Leave `OWNER_EMAIL` empty: inquiries then go
+   to the Google account that owns and deploys the script. Only type an
+   address there if inquiries should go somewhere else. Mail is always
+   sent *from* the deploying account.
 3. **Deploy → New deployment → Web app**. Execute as **Me**. Who has
    access: **Anyone**. It must be exactly "Anyone": any other setting makes
    every request from the website fail. Grant the email permission it asks
    for, then copy the URL ending in `/exec`.
 4. In `index.html`, find `CONTACT_FORM_URL` and paste that URL in.
-5. After editing `AppsScript.gs` later, publish a **new version**
-   (Deploy → Manage deployments → edit → New version), or the live URL
-   keeps running the old code.
+5. After editing `AppsScript.gs` later, publish a **new version** of the
+   *same* deployment: Deploy → Manage deployments → pencil icon →
+   Version: **New version** → Deploy. Do not use "New deployment": that
+   creates a different URL, and the website keeps calling the old one with
+   the old code.
 
 Until step 4 is done, the form shows "The contact form isn't connected yet".
 
@@ -68,6 +71,17 @@ The hidden `website` field is a honeypot. People never see it, bots fill
 it in, and the script quietly drops those requests.
 
 ## Debugging
+
+**Check which version is live:** open the `/exec` URL in a browser. The
+reply includes `"version"`, which should match `SCRIPT_VERSION` at the top
+of `AppsScript.gs`. No version, or an older one, means the website is
+still calling old code (see step 5).
+
+**Check where inquiries go:** in the Apps Script editor, pick
+**`testOwnerEmail`** in the function dropdown and click Run. Allow the
+permissions it asks for. The log shows the address inquiries go to and how
+many emails are left for today, and a test email is sent there.
+
 
 Run **`testSendOtp`** from the function dropdown in the Apps Script editor
 (set the test email at its top first), then check **Executions / Logs**.
